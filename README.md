@@ -406,6 +406,14 @@ python convert_hf_to_gguf.py ./Qwen3-0.6B/ --outfile qwen3-0.6b-f16.gguf
 ./build/bin/llama-cli -m qwen3-0.6b-q6_k.gguf -p "你好，我是" -n 50 -t 8
 ```
 
+```
+hdc shell "ls /data/local/tmp/"
+hdc file send llama /data/local/tmp/
+hdc shell "chmod +x /data/local/tmp/llama/llama-cli"
+
+hdc shell "/data/local/tmp/llama/llama-cli -h"
+```
+
 ## [`llama-cli`](tools/cli)
 
 #### A CLI tool for accessing and experimenting with most of `llama.cpp`'s functionality.

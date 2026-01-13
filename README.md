@@ -108,7 +108,12 @@ cmake .. \
     -DLLAMA_BUILD_EXAMPLES=OFF \
     -DLLAMA_BUILD_SERVER=ON \
     -DLLAMA_CURL=OFF \
-    -DLLAMA_OPENSSL=OFF
+    -DLLAMA_OPENSSL=OFF \
+    -DGGML_OPENMP=OFF \
+    -DGGML_CPU_AARCH64=ON \
+    -DCMAKE_C_FLAGS="-fno-emulated-tls" \
+    -DCMAKE_CXX_FLAGS="-fno-emulated-tls" \
+    -DGGML_GGUF=ON
 
 # 3. 编译目标（选择需要的工具）
 # 编译llama-cli（命令行工具）
@@ -407,11 +412,18 @@ python convert_hf_to_gguf.py ./Qwen3-0.6B/ --outfile qwen3-0.6b-f16.gguf
 ```
 
 ```
-hdc shell "ls /data/local/tmp/"
+hdc shell "ls /data/local/tmp/llama"
+hdc shell "rm -rf  /data/local/tmp/llama/lama-cli"
 hdc file send llama /data/local/tmp/
+hdc file send llama-cli /data/local/tmp/llama/
 hdc shell "chmod +x /data/local/tmp/llama/llama-cli"
 
 hdc shell "/data/local/tmp/llama/llama-cli -h"
+
+hdc shell "/data/local/tmp/llama/llama-cli -m /data/local/tmp/llama/qwen3-0.6b-q6_k.gguf --no-direct-io -p "你好，我是" -n 50 -t 8"
+
+
+hdc shell   ./build/bin/llama-cli -m qwen3-0.6b-q6_k.gguf -p "你好，我是" -n 50 -t 8
 ```
 
 ## [`llama-cli`](tools/cli)

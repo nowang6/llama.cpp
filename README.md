@@ -76,7 +76,7 @@ cmake --build . --config Release -j $(nproc)
 cd /home/niwang/code/llama.cpp
 
 # 2. 设置环境变量（重要）
-export OHOS_NDK=/home/niwang/code/llama.cpp/ohos_sdk
+export OHOS_NDK=/home/wWX1421092/ohos_ndk
 export PATH=$OHOS_NDK/native/llvm/bin:$PATH
 
 # 3. 验证编译器（可选）
@@ -94,7 +94,7 @@ cd build_ohos
 
 # 2. 配置CMake（关键步骤）
 cmake .. \
-    -DCMAKE_TOOLCHAIN_FILE=../ohos_sdk/native/build/cmake/ohos.toolchain.cmake \
+    -DCMAKE_TOOLCHAIN_FILE=$OHOS_NDK/native/build/cmake/ohos.toolchain.cmake \
     -DOHOS_ARCH=arm64-v8a \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=OFF \
@@ -388,7 +388,7 @@ To learn more about model quantization, [read this documentation](tools/quantize
 #### Format conversion
 
 ```
-python convert_hf_to_gguf.py /data/models/Qwen3-0.6B/ --outfile qwen3-0.6b-f16.gguf
+python convert_hf_to_gguf.py ./Qwen3-0.6B/ --outfile qwen3-0.6b-f16.gguf
 ```
 
 #### Quantization

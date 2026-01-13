@@ -138,3 +138,6 @@ poetry.toml
 /.windsurf/
 # emscripten
 a.out.*
+
+# SDK
+ohos_sdk
